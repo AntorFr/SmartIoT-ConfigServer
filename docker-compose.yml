@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  smartiotconfigserver:
+    image: smartiotconfigserver
+    build:
+      context: .
+      dockerfile: Dockerfile

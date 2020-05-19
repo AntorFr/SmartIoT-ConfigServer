@@ -1,0 +1,8 @@
+{
+  "broker": {
+    "host": "mqtt",
+    "username": "",
+    "password": ""
+  },
+  "domains": ["home","smallcity"]
+}
