@@ -124,3 +124,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 config.json
+configs/hotwater.json
+.vscode
+

@@ -35,18 +35,26 @@ def on_firmware_message(client, userdata, msg):
 
 def post_firmwares():
     for fwname, firmware in fw.firmwares.items():
-        for domain in config["domains"]:
-            client.publish(domain+"/setup/ota/"+fwname+"/firmware", payload=json.dumps(firmware), qos=1, retain=True)
-            client.publish(domain+"/setup/ota/"+fwname+"/firmware/"+firmware["md5"], payload=fw.get_firmware_data(firmware["path"]), qos=1, retain=True)
-        firmware["published"]=True
+        post_firmware(firmware)
     
+def post_firmware(firmware):
+    for domain in config["domains"]:
+        client.publish(domain+"/setup/ota/"+firmware["name"]+"/firmware/"+firmware["md5"], payload=fw.get_firmware_data(firmware["path"]), qos=1, retain=True)
+        client.publish(domain+"/setup/ota/"+firmware["name"]+"/firmware", payload=json.dumps(firmware), qos=1, retain=True)
+    firmware["published"]=True
+
+def unpost_firmware(firmware):
+    for domain in config["domains"]:
+        client.publish(domain+"/setup/ota/"+firmware["name"]+"/firmware/"+firmware["md5"], payload="", qos=1, retain=True)
+        client.publish(domain+"/setup/ota/"+firmware["name"]+"/firmware", payload="", qos=1, retain=True)
+    firmware["published"]=False
+
 
 
 if __name__ == "__main__":
     load_config()
 
-    fw = FirmwareWatcher("./firmwares")
-    print(fw.firmwares)
+
 
     client = mqtt.Client(client_id="SmartIot_configServ")
     client.will_set(config["domains"][0]+"/setup/up/smartiot_configserv", payload='{"status":"Offline"}', qos=1, retain=True)
@@ -58,6 +66,13 @@ if __name__ == "__main__":
         client.message_callback_add(domain+"/setup/ota/+/firmware/+", on_firmware_message)
 
     client.connect(config["broker"]["host"], config["broker"]["port"], 60)
+
+    fw = FirmwareWatcher("./firmwares")
+    fw.add = post_firmware
+    fw.remove = unpost_firmware
+    fw.read_firmware_folder()
+    print(fw.firmwares)
+
 
     try:
         client.loop_forever()

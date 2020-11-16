@@ -12,7 +12,7 @@ class FirmwareWatcher:
         self._directory = directory
         self.firmwares = {}
 
-        self._read_firmware_folder()
+        #self.read_firmware_folder()
 
         self.event_handler = PatternMatchingEventHandler(
             patterns=["*.bin"],ignore_directories=True)
@@ -38,6 +38,7 @@ class FirmwareWatcher:
     def on_deleted(self,event):
         print("File {0} deleted, update firmware info.".format(event.src_path))
         #todo delete file from firmware list
+        self._remove_firmware_info(event.src_path) 
         #self._read_firmware_folder() 
 
     def on_moved(self,event):
@@ -61,6 +62,14 @@ class FirmwareWatcher:
         firmware = bytearray()
         firmware.extend(firmware_binary)
         return firmware
+
+    def _remove_firmware_info(self,path):
+        for name, firmware in list(self.firmwares.items()):
+            if (path == firmware["path"]):
+                self.remove(firmware)
+                self.firmwares.pop(name)
+            
+
 
     def _update_firmware_info(self,path):
         firmware = {}
@@ -104,15 +113,17 @@ class FirmwareWatcher:
 
         if (firmware["name"] not in self.firmwares) or \
         ((self.firmwares[firmware["name"]]["int_version"]<firmware["int_version"])):
+                #TODO if old firmware published, remove it
+                firmware["published"] = False
                 self.firmwares[firmware["name"]] = firmware
-                self.firmwares[firmware["name"]]["published"]=False
                 print(path + " file included in firmware list")
+                self.add(firmware)
                 return True
         else:
             print(path + " file outdated, not included  in firmware list")
             return False
 
-    def _read_firmware_folder(self):
+    def read_firmware_folder(self):
         for filename in os.listdir(self._directory):
             if (filename.endswith(".bin")):
                 self._update_firmware_info(os.path.join(self._directory, filename))
