@@ -1,0 +1,27 @@
+{
+  "wifi": {
+    "ssid": "INTRA_M2M"
+  },
+  "mqtt": {
+    "host": "192.168.10.23",
+    "port": 1883,
+    "auth": true,
+    "base_topic": "home/"
+  },
+  "ota": {
+    "enabled": true
+  },
+  "device_stats_interval": 300,
+  "device_id": "entrance-gate",
+  "device_name": "Entrance gate",
+  "settings": {},
+  "nodes": {
+    "door": {
+      "node_name": "entrance-gate",
+      "pin_open": 0,
+      "pin_close": 0,
+      "open_duration": 10000,
+      "close_duration": 10000
+    }
+  }
+}

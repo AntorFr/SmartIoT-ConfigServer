@@ -1,0 +1,28 @@
+{
+  "wifi": {
+    "ssid": "INTRA_M2M"
+  },
+  "mqtt": {
+    "host": "192.168.10.23",
+    "port": 1883,
+    "auth": true,
+    "base_topic": "home/"
+  },
+  "ota": {
+    "enabled": true
+  },
+  "device_stats_interval": 300,
+  "device_id": "christmas-tree",
+  "device_name": "Christmas tree",
+  "settings": {},
+  "nodes": {
+    "led": {
+      "node_name": "christmas-tree",
+      "fps": 60,
+      "nb_led": 200,
+      "audio_pin": 17,
+      "auto_play": true,
+      "auto_play_duration": 45
+    }
+  }
+}

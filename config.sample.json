@@ -1,8 +1,10 @@
 {
   "broker": {
     "host": "mqtt",
+    "port": 1883,
     "username": "",
-    "password": ""
+    "password": "",
+    "clientId": "smartiot-config"
   },
   "domains": ["home","smallcity"]
 }

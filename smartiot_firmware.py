@@ -123,7 +123,7 @@ class FirmwareWatcher:
             print(path + " file outdated, not included  in firmware list")
             return False
 
-    def read_firmware_folder(self):
+    def _read_firmware_folder(self):
         for filename in os.listdir(self._directory):
             if (filename.endswith(".bin")):
                 self._update_firmware_info(os.path.join(self._directory, filename))
