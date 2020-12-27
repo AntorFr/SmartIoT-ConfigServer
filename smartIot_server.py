@@ -44,7 +44,7 @@ def on_firmware_message(client, userdata, msg):
         topic[3] not in fw.firmwares or \
         topic[5] != fw.firmwares[topic[3]]["md5"])):
         print("firmware on "+msg.topic+" outdated, remove it")
-        client.publish(msg.topic, payload="", qos=1, retain=True)
+        client.publish(msg.topic, payload=None, qos=1, retain=True)
 
 def on_config_message(client, userdata, msg):
     payload = msg.payload
@@ -56,7 +56,7 @@ def on_config_message(client, userdata, msg):
     with open("configs/"+deviceId+".json", "w") as f:
         json.dump(json.loads(payload),f,indent=2)
 
-    client.publish(msg.topic, payload="", qos=1, retain=True)
+    client.publish(msg.topic, payload=None, qos=1, retain=True)
 
 def request_config():
     for domain in config["domains"]:
@@ -110,5 +110,5 @@ if __name__ == "__main__":
     except (SystemExit, KeyboardInterrupt):
         fw.observer.stop()
         on_disconnect()
-        
+
     fw.observer.join()
