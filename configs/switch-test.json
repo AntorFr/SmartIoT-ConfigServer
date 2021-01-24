@@ -12,16 +12,19 @@
     "enabled": true
   },
   "device_stats_interval": 300,
-  "device_id": "entrance-gate",
-  "device_name": "Entrance gate",
+  "device_id": "bed-heater",
+  "device_name": "bed heater",
+  "led_pin": 13,
+  "reset_pin": 0,
   "settings": {},
   "nodes": {
-    "door": {
-      "node_name": "entrance-gate",
-      "pin_open": 0,
-      "pin_close": 0,
-      "open_duration": 20000,
-      "close_duration": 20000
+    "switch1": {
+      "node_name": "bedheater-1",
+      "pin": 12
+    },
+    "switch2": {
+      "node_name": "bedheater-2",
+      "pin": 5
     }
   }
 }

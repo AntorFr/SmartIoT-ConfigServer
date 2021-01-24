@@ -22,6 +22,10 @@
       "pin_close": 12,
       "open_duration": 20000,
       "close_duration": 20000
+    },
+    "switch": {
+      "node_name": "garagedoor-2",
+      "pin": 15
     }
   }
 }

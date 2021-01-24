@@ -1,0 +1,49 @@
+{
+"discovery_prefix":"home/discovery/homeassistant",
+"globals":{
+  "availability_topic":"home/log/state/${device_id}",
+  "payload_available": "connected",
+  "payload_not_available": "lost",
+  "manufacturer":"SmartIoT"
+},
+"node_types":{
+  "door":{
+    "device_class":"garage",
+    "component":"cover",
+    "name": "${device_id}",
+    "retain": false,
+    "payload_open": "open",
+    "payload_close": "close",
+    "payload_stop": "stop",
+    "state_open": "open",
+    "state_opening": "openning",
+    "state_closed": "closed",
+    "state_closing": "closing",
+    "command_topic":"home/door/${device_id}/targetstate/set",
+    "state_topic":"home/door/${device_id}/currentstate"
+  }
+},
+"devices":{
+  "garagedoor-1":{
+    "node_type":"door",
+    "name":"Garage 1",
+    "unique_id":"garagedoor-1"
+  },
+  "garagedoor-2":{
+    "node_type":"door",
+    "name":"Garage 2",
+    "unique_id":"garagedoor-2"
+  },
+  "garagedoor-3":{
+    "node_type":"door",
+    "name":"Garage 3",
+    "unique_id":"garagedoor-3"
+  },
+  "entrance-gate":{
+    "node_type":"door",
+    "device_class":"gate",
+    "name":"Portail",
+    "unique_id":"entrance-gate"
+  }
+}
+}

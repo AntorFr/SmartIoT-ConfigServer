@@ -22,7 +22,8 @@
       "nb_led": 200,
       "audio_pin": 17,
       "auto_play": true,
-      "auto_play_duration": 45
+      "auto_play_duration": 45,
+      "brightness": 200
     }
   }
 }

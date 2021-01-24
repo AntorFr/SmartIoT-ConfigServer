@@ -12,16 +12,12 @@
     "enabled": true
   },
   "device_stats_interval": 300,
-  "device_id": "entrance-gate",
-  "device_name": "Entrance gate",
+  "device_id": "led-test",
+  "device_name": "Led Test",
   "settings": {},
   "nodes": {
-    "door": {
-      "node_name": "entrance-gate",
-      "pin_open": 0,
-      "pin_close": 0,
-      "open_duration": 20000,
-      "close_duration": 20000
+    "led": {
+      "node_name": "test"
     }
   }
 }

@@ -2,7 +2,8 @@
 import paho.mqtt.client as mqtt
 import json
 
-from smartiot_firmware import FirmwareWatcher 
+from smartiot_firmware import FirmwareWatcher
+from smartiot_discovery import DiscoveryWatcher 
 
 config = {}
 
@@ -103,6 +104,8 @@ if __name__ == "__main__":
     fw.remove = unpost_firmware
     fw._read_firmware_folder()
     print(fw.firmwares)
+
+    discovery = DiscoveryWatcher("./discovery",client)
 
 
     try:

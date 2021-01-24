@@ -1,0 +1,95 @@
+{
+"discovery_prefix":"home/discovery/homeassistant",
+"globals":{
+  "availability_topic":"home/log/state/${device_id}",
+  "payload_available": "connected",
+  "payload_not_available": "lost"
+},
+"node_types":{
+  "door":{
+    "device_class":"garage",
+    "component":"cover",
+    "name": "${node_id}",
+    "retain": false,
+    "payload_open": "open",
+    "payload_close": "close",
+    "payload_stop": "stop",
+    "state_open": "open",
+    "state_opening": "openning",
+    "state_closed": "closed",
+    "state_closing": "closing",
+    "command_topic":"home/door/${node_id}/targetstate/set",
+    "state_topic":"home/door/${node_id}/currentstate",
+    "unique_id":"${node_id}"
+  },
+  "led":{
+    "component":"light", 
+    "schema":"json",
+    "command_topic": "home/led/${node_id}/set",
+    "state_topic": "home/led/${node_id}",
+    "brightness": true ,
+    "brightness_scale":255,
+    "retain":true,
+    "rgb":true,
+    "effect":true,
+    "unique_id":"${node_id}",
+    "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
+      "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]
+  },
+  "light":{
+    "component":"light",  
+    "schema":"json",
+    "command_topic": "home/light/${node_id}/set",
+    "state_topic": "home/light/${node_id}",
+    "unique_id":"${node_id}"  
+  },
+  "switch":{
+    "component":"switch",
+    "command_topic": "home/switch/${node_id}/set",
+    "state_topic": "home/switch/${node_id}",
+    "state_on": "ON",
+    "state_off": "OFF",
+    "value_template": "{{value_json.state}}",
+    "unique_id":"${node_id}",
+    "payload_on":"{\"value\":100}",
+    "payload_off":"{\"value\":0}"
+  }
+},
+"devices":{
+  "garagedoor-1":{
+    "node_type":["door","light"],
+    "name":"Garage 1"
+  },
+  "garagedoor-2":{
+    "node_type":"door",
+    "name":"Garage 2"
+  },
+  "garagedoor-3":{
+    "node_type":"door",
+    "name":"Garage 3"
+  },
+  "entrance-gate":{
+    "node_type":"door",
+    "device_class":"gate",
+    "name":"Portail"
+  },
+  "christmas-tree":{
+    "node_type":"led",
+    "name":"Sapin"
+  },
+  "teddy-light":{
+    "node_type":"led",
+    "name":"Veilleuse Timothée"
+  },
+  "bedheater-1":{
+    "node_type":"switch",
+    "name":"Couverture Laurine",
+    "device_id":"bed-heater"
+  },
+  "bedheater-2":{
+    "node_type":"switch",
+    "name":"Couverture Seb",
+    "device_id":"bed-heater"
+  }
+}
+}
