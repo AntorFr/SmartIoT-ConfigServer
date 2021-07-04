@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#internal folder
+configs/
+discovery/
+firmwares/
+settings/config.json
+
 # C extensions
 *.so
 
@@ -123,8 +129,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-config.json
-configs/hotwater.json
 .vscode
-
 .DS_Store

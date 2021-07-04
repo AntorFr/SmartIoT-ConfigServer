@@ -9,7 +9,7 @@ config = {}
 
 def load_config():
     global config
-    with open('config.json', 'r') as f:
+    with open('settings/config.json', 'r') as f:
         config = json.load(f)
         if ("port" not in config["broker"]):
             config["broker"]["port"] = 1883
