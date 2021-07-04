@@ -6,3 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./configs:/app/configs
+      - ./discovery:/app/discovery
+      - ./firmwares:/app/firmwares
