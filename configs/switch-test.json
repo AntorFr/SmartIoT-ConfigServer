@@ -12,18 +12,18 @@
     "enabled": true
   },
   "device_stats_interval": 300,
-  "device_id": "bed-heater",
-  "device_name": "bed heater",
+  "device_id": "switch-test",
+  "device_name": "Switch test",
   "led_pin": 13,
   "reset_pin": 0,
   "settings": {},
   "nodes": {
     "switch1": {
-      "node_name": "bedheater-1",
+      "node_name": "switch-1",
       "pin": 12
     },
     "switch2": {
-      "node_name": "bedheater-2",
+      "node_name": "switch-2",
       "pin": 5
     }
   }

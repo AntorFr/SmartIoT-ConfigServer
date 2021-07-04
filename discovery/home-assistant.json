@@ -28,7 +28,7 @@
     "command_topic": "home/led/${node_id}/set",
     "state_topic": "home/led/${node_id}",
     "brightness": true ,
-    "brightness_scale":255,
+    "brightness_scale":100,
     "retain":true,
     "rgb":true,
     "effect":true,
@@ -39,6 +39,7 @@
   "light":{
     "component":"light",  
     "schema":"json",
+    "retain": true,
     "command_topic": "home/light/${node_id}/set",
     "state_topic": "home/light/${node_id}",
     "unique_id":"${node_id}"  
@@ -49,6 +50,7 @@
     "state_topic": "home/switch/${node_id}",
     "state_on": "ON",
     "state_off": "OFF",
+    "retain": true,
     "value_template": "{{value_json.state}}",
     "unique_id":"${node_id}",
     "payload_on":"{\"value\":100}",
@@ -84,12 +86,14 @@
   "bedheater-1":{
     "node_type":"switch",
     "name":"Couverture Laurine",
-    "device_id":"bed-heater"
+    "device_id":"bed-heater",
+    "icon":"mdi:bed-king"
   },
   "bedheater-2":{
     "node_type":"switch",
     "name":"Couverture Seb",
-    "device_id":"bed-heater"
+    "device_id":"bed-heater",
+    "icon":"mdi:bed-king"
   }
 }
 }

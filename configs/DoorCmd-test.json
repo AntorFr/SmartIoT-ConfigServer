@@ -9,23 +9,21 @@
     "base_topic": "home/"
   },
   "ota": {
-    "enabled": true
+    "enabled": false
   },
   "device_stats_interval": 300,
-  "device_id": "garagedoor-3",
-  "device_name": "Garage door 3",
+  "device_id": "DoorCmd-test",
+  "device_name": "DoorCmd test",
   "settings": {},
   "nodes": {
     "door": {
-      "node_name": "garagedoor-3",
+      "node_name": "garagedoor-test",
       "pin_open": 12,
       "pin_close": 12,
-      "open_duration": 10000,
-      "close_duration": 10000
-    },
-    "switch": {
-      "node_name": "garagedoor-3",
-      "pin": 15
+      "open_duration": 20000,
+      "close_duration": 20000,
+      "pin_light": 15,
+      "light_duration": 120
     }
   }
 }

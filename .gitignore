@@ -127,3 +127,4 @@ config.json
 configs/hotwater.json
 .vscode
 
+.DS_Store
