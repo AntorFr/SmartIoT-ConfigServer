@@ -1,99 +1,153 @@
 {
-"discovery_prefix":"home/discovery/homeassistant",
-"globals":{
-  "availability_topic":"home/log/state/${device_id}",
-  "payload_available": "connected",
-  "payload_not_available": "lost"
-},
-"node_types":{
-  "door":{
-    "device_class":"garage",
-    "component":"cover",
-    "name": "${node_id}",
-    "retain": false,
-    "payload_open": "open",
-    "payload_close": "close",
-    "payload_stop": "stop",
-    "state_open": "open",
-    "state_opening": "openning",
-    "state_closed": "closed",
-    "state_closing": "closing",
-    "command_topic":"home/door/${node_id}/targetstate/set",
-    "state_topic":"home/door/${node_id}/currentstate",
-    "unique_id":"${node_id}"
+  "discovery_prefix":"home/discovery/homeassistant",
+  "globals":{
+    "availability_topic":"home/log/state/${device_id}",
+    "payload_available": "connected",
+    "payload_not_available": "lost",
+    "device":{
+      "identifiers":"${device_id}",
+      "manufacturer":"Smart-IoT",
+      "name":"${device_id}"
+    }
   },
-  "led":{
-    "component":"light", 
-    "schema":"json",
-    "command_topic": "home/led/${node_id}/set",
-    "state_topic": "home/led/${node_id}",
-    "brightness": true ,
-    "brightness_scale":100,
-    "retain":true,
-    "rgb":true,
-    "effect":true,
-    "unique_id":"${node_id}",
-    "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
-      "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]
+  "node_types":{
+    "door":{
+      "device_class":"garage",
+      "component":"cover",
+      "name": "${node_id}",
+      "retain": false,
+      "payload_open": "open",
+      "payload_close": "close",
+      "payload_stop": "stop",
+      "state_open": "open",
+      "state_opening": "openning",
+      "state_closed": "closed",
+      "state_closing": "closing",
+      "command_topic":"home/door/${node_id}/targetstate/set",
+      "state_topic":"home/door/${node_id}/currentstate",
+      "unique_id":"${node_id}"
+    },
+    "led":{
+      "component":"light", 
+      "schema":"json",
+      "command_topic": "home/led/${node_id}/set",
+      "state_topic": "home/led/${node_id}",
+      "brightness": true ,
+      "brightness_scale":100,
+      "retain":true,
+      "rgb":true,
+      "effect":true,
+      "unique_id":"${node_id}",
+      "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
+        "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]
+    },
+    "led_speed":{
+      "component":"number",
+      "entity_category":"config",
+      "min":1,
+      "max":100,
+      "step":1,
+      "retain":false,
+      "state_topic": "home/led/${node_id}/speed",
+      "command_topic": "home/led/${node_id}/speed/set",
+      "unique_id":"${node_id}_speed"
+    },
+    "light":{
+      "component":"light",  
+      "schema":"json",
+      "retain": true,
+      "command_topic": "home/light/${node_id}/set",
+      "state_topic": "home/light/${node_id}",
+      "unique_id":"${node_id}"  
+    },
+    "switch":{
+      "component":"switch",
+      "command_topic": "home/switch/${node_id}/set",
+      "state_topic": "home/switch/${node_id}",
+      "state_on": "ON",
+      "state_off": "OFF",
+      "retain": true,
+      "value_template": "{{value_json.state}}",
+      "unique_id":"${node_id}",
+      "payload_on":"{\"value\":100}",
+      "payload_off":"{\"value\":0}"
+    },
+    "tele-info":{
+      "component":"sensor",
+      "availability_topic":"home/energy/${device_id}/tele/LWT",
+      "payload_available": "Online",
+      "payload_not_available": "Offline",
+      "state_topic":"home/energy/${device_id}/tele/SENSOR",
+      "value_template": "{{ (value_json['ENERGY'].Today) |float }}",
+      "unit_of_measurement": "kWh",
+      "device_class": "energy",
+      "json_attributes_topic": "home/energy/${device_id}/tele/SENSOR"
+
+    }
   },
-  "light":{
-    "component":"light",  
-    "schema":"json",
-    "retain": true,
-    "command_topic": "home/light/${node_id}/set",
-    "state_topic": "home/light/${node_id}",
-    "unique_id":"${node_id}"  
-  },
-  "switch":{
-    "component":"switch",
-    "command_topic": "home/switch/${node_id}/set",
-    "state_topic": "home/switch/${node_id}",
-    "state_on": "ON",
-    "state_off": "OFF",
-    "retain": true,
-    "value_template": "{{value_json.state}}",
-    "unique_id":"${node_id}",
-    "payload_on":"{\"value\":100}",
-    "payload_off":"{\"value\":0}"
+  "devices":{
+    "garagedoor-1":{
+      "node_type":["door"],
+      "name":"Garage 1"
+    },
+    "garagedoor-2":{
+      "node_type":"door",
+      "name":"Garage 2"
+    },
+    "garagedoor-3":{
+      "node_type":"door",
+      "name":"Garage 3"
+    },
+    "entrance-gate":{
+      "node_type":"door",
+      "device_class":"gate",
+      "name":"Portail"
+    },
+    "christmas-tree":{
+      "node_type":["led","led_speed"],
+      "name":"Sapin"
+    },
+    "teddy-light":{
+      "node_type":"led",
+      "name":"Veilleuse Timothée"
+    },
+    "master-bed-light":{
+      "node_type":"led",
+      "name":"Veilleuse lit parent"
+    },
+    "buffet-light":{
+      "node_type":"led",
+      "name":"Salon led buffet"
+    },
+    "bedheater-1":{
+      "node_type":"switch",
+      "name":"Couverture Laurine",
+      "device_id":"bed-heater",
+      "icon":"mdi:bed-king"
+    },
+    "bedheater-2":{
+      "node_type":"switch",
+      "name":"Couverture Seb",
+      "device_id":"bed-heater",
+      "icon":"mdi:bed-king"
+    },
+    "linky-reader":{
+      "node_type":"tele-info",
+      "name":"Linky",
+      "device_id":"linky-reader",
+      "icon":"mdi:speedometer"
+    },
+    "xmas-light_led":{
+      "node_type":"led",
+      "device_id":"xmas-light",
+      "name":"Guirlandes noël",
+      "icon":"mdi:string-lights"
+    },
+    "xmas-light_switch":{
+      "node_type":"switch",
+      "device_id":"xmas-light",
+      "name":"Guirlandes noël switch",
+      "icon":"mdi:light-switch"
+    }
   }
-},
-"devices":{
-  "garagedoor-1":{
-    "node_type":["door","light"],
-    "name":"Garage 1"
-  },
-  "garagedoor-2":{
-    "node_type":"door",
-    "name":"Garage 2"
-  },
-  "garagedoor-3":{
-    "node_type":"door",
-    "name":"Garage 3"
-  },
-  "entrance-gate":{
-    "node_type":"door",
-    "device_class":"gate",
-    "name":"Portail"
-  },
-  "christmas-tree":{
-    "node_type":"led",
-    "name":"Sapin"
-  },
-  "teddy-light":{
-    "node_type":"led",
-    "name":"Veilleuse Timothée"
-  },
-  "bedheater-1":{
-    "node_type":"switch",
-    "name":"Couverture Laurine",
-    "device_id":"bed-heater",
-    "icon":"mdi:bed-king"
-  },
-  "bedheater-2":{
-    "node_type":"switch",
-    "name":"Couverture Seb",
-    "device_id":"bed-heater",
-    "icon":"mdi:bed-king"
-  }
-}
 }
