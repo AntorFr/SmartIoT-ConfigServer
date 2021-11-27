@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
 
 #internal folder
 configs/
@@ -130,4 +131,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .vscode
+.DS_Store
+firmwares/.DS_Store
 .DS_Store
