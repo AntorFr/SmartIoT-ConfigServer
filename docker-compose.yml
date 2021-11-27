@@ -1,8 +1,17 @@
-version: '3.4'
-
+version: "3.4"
 services:
-  smartiotconfigserver:
-    image: smartiotconfigserver
-    build:
-      context: .
-      dockerfile: Dockerfile
+  smartiot-config:
+    build: https://github.com/AntorFr/SmartIoT-ConfigServer.git
+    restart: unless-stopped
+    volumes:
+      - ./configs:/app/configs
+      - ./discovery:/app/discovery
+      - ./firmwares:/app/firmwares
+      - ./settings:/app/settings
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+    external:
+      name: backend-net
