@@ -31,6 +31,10 @@ def on_connect(client, userdata, flags, rc):
 
     request_config()
 
+    discovery.on_mqtt_connexion()
+
+    
+
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     #print(msg.topic+" "+str(msg.payload))
@@ -86,7 +90,6 @@ def on_disconnect():
 if __name__ == "__main__":
     load_config()
 
-
     client = mqtt.Client(client_id=config["broker"]["clientId"])
     client.will_set(config["domains"][0]+"/log/state/"+config["broker"]["clientId"], payload='lost', qos=1, retain=True)
     if ("username" in config["broker"]):
@@ -97,6 +100,9 @@ if __name__ == "__main__":
         client.message_callback_add(domain+"/setup/ota/+/firmware/+", on_firmware_message)
         client.message_callback_add(domain+"/log/config/+", on_config_message)
 
+
+    discovery = DiscoveryWatcher("./discovery",client,config)
+
     client.connect(config["broker"]["host"], config["broker"]["port"], 60)
 
     fw = FirmwareWatcher("./firmwares")
@@ -105,13 +111,15 @@ if __name__ == "__main__":
     fw._read_firmware_folder()
     print(fw.firmwares)
 
-    discovery = DiscoveryWatcher("./discovery",client)
+    
 
 
     try:
         client.loop_forever()
     except (SystemExit, KeyboardInterrupt):
         fw.observer.stop()
+        discovery.observer.stop()
         on_disconnect()
 
     fw.observer.join()
+    discovery.observer.join()
