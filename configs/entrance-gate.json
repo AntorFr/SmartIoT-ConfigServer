@@ -18,10 +18,10 @@
   "nodes": {
     "door": {
       "node_name": "entrance-gate",
-      "pin_open": 0,
-      "pin_close": 0,
-      "open_duration": 20000,
-      "close_duration": 20000
+      "pin_open": 12,
+      "pin_close": 12,
+      "open_duration": 12000,
+      "close_duration": 120000
     }
   }
 }

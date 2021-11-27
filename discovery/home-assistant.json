@@ -41,6 +41,29 @@
       "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
         "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]
     },
+    "led_segment":{
+      "component":"light", 
+      "schema":"template",
+      "entity_category" :"config",
+      "command_topic": "home/led/${device_id}/set",
+      "state_topic": "home/led/${device_id}",
+      "command_on_template":"{\"objects\":{\"${node_id}\":{\"state\": \"ON\"{%- if red is defined and green is defined and blue is defined -%}, \"color\": {\"r\":{{ red }}, \"g\":{{ green }}, \"b\":{{ blue }}}{%- endif -%}{%- if effect is defined -%}, \"effect\": \"{{ effect }}\"{%- endif -%}}}}",
+      "command_off_template": "{\"objects\":{\"${node_id}\":{\"state\": \"OFF\"}}}",
+      "state_template": "{{ value_json['${node_id}'].state.lower() }}",
+      "brightness_template": "{{ value_json.brightness }}",
+      "red_template": "{{ value_json['${node_id}'].color.r }}",
+      "green_template": "{{ value_json['${node_id}'].color.g }}",
+      "blue_template": "{{ value_json['${node_id}'].color.b }}",
+      "effect_template": "{{ value_json['${node_id}'].effect }}",
+      "brightness": false ,
+      "retain":false,
+      "rgb":true,
+      "effect":true,
+      "unique_id":"${node_id}",
+      "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
+        "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]     
+    }
+    ,
     "led_speed":{
       "component":"number",
       "entity_category":"config",
@@ -108,15 +131,42 @@
       "name":"Sapin"
     },
     "teddy-light":{
-      "node_type":"led",
+      "node_type":["led","led_speed"],
       "name":"Veilleuse Timothée"
     },
+    "desk-light":{
+      "node_type":["led","led_speed"],
+      "name":"Barre Led ecran"
+    },
     "master-bed-light":{
-      "node_type":"led",
+      "node_type":["led","led_speed"],
       "name":"Veilleuse lit parent"
     },
+    "daynight-light":{
+      "node_type":["led"],
+      "name":"Cadre lumineux Timothée",
+      "icon": "mdi:weather-night"
+    },
+    "daynight-moon-light":{
+      "device_id":"daynight-light",
+      "node_type":["led_segment"],
+      "icon": "mdi:moon-waning-crescent",
+      "name":"Cadre lumineux - Lune"
+    },
+    "daynight-stars-light":{
+      "device_id":"daynight-light",
+      "node_type":["led_segment"],
+      "icon": "mdi:star",
+      "name":"Cadre lumineux - Étoiles"
+    },
+    "daynight-sun-light":{
+      "device_id":"daynight-light",
+      "node_type":["led_segment"],
+      "icon": "mdi:white-balance-sunny",
+      "name":"Cadre lumineux - Soleil"
+    },
     "buffet-light":{
-      "node_type":"led",
+      "node_type":["led","led_speed"],
       "name":"Salon led buffet"
     },
     "bedheater-1":{
@@ -138,7 +188,7 @@
       "icon":"mdi:speedometer"
     },
     "xmas-light_led":{
-      "node_type":"led",
+      "node_type":["led","led_speed"],
       "device_id":"xmas-light",
       "name":"Guirlandes noël",
       "icon":"mdi:string-lights"
