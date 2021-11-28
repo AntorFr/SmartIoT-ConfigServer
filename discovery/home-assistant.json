@@ -50,7 +50,6 @@
       "command_on_template":"{\"objects\":{\"${node_id}\":{\"state\": \"ON\"{%- if red is defined and green is defined and blue is defined -%}, \"color\": {\"r\":{{ red }}, \"g\":{{ green }}, \"b\":{{ blue }}}{%- endif -%}{%- if effect is defined -%}, \"effect\": \"{{ effect }}\"{%- endif -%}}}}",
       "command_off_template": "{\"objects\":{\"${node_id}\":{\"state\": \"OFF\"}}}",
       "state_template": "{{ value_json['${node_id}'].state.lower() }}",
-      "brightness_template": "{{ value_json.brightness }}",
       "red_template": "{{ value_json['${node_id}'].color.r }}",
       "green_template": "{{ value_json['${node_id}'].color.g }}",
       "blue_template": "{{ value_json['${node_id}'].color.b }}",
