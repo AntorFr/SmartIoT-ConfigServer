@@ -156,7 +156,7 @@ class DiscoveryWatcher:
             data["model"] += " ("+advertise_data["implementation"]["device"]+")"
             data["sw_version"] += " ("+advertise_data["implementation"]["version"]+")"
         if "mac" in advertise_data:
-            data["connections"] =  {"mac":advertise_data["mac"]}
+            data["connections"] =  [["mac":advertise_data["mac"]]]
 
         self.advertise_data[deviceId] = data
 
