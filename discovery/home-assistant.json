@@ -8,6 +8,32 @@
       "identifiers":"${device_id}",
       "manufacturer":"Smart-IoT",
       "name":"${device_id}"
+    },
+    "system_info":["uptime","freemem"]
+  },
+  "system_infos":{
+    "uptime":{
+      "name":"Boot time",
+      "unique_id":"${device_id}_boot_time",
+      "component":"sensor",
+      "device_class":"timestamp",
+      "entity_category":"diagnostic",
+      "enabled_by_default":true,
+      "state_topic":"home/log/heartbeat/${device_id}",
+      "value_template":"{{value_json.boot_date}}",
+      "json_attributes_topic":"home/log/heartbeat/${device_id}",
+      "json_attributes_template":"{\"uptime\": {{value_json.uptime| timestamp_local}}}"
+    },
+    "freemem":{
+      "name":"Free mem",
+      "unique_id":"${device_id}_free_mem",
+      "component":"sensor",
+      "entity_category":"diagnostic",
+      "enabled_by_default":true,
+      "state_topic":"home/log/heartbeat/${device_id}",
+      "value_template":"{{value_json.freeBlock}}",
+      "json_attributes_topic":"home/log/heartbeat/${device_id}",
+      "json_attributes_template":"{\"freeMem\": {{value_json.freeMem}}, \"freeBlock\": {{value_json.freeBlock}}}"
     }
   },
   "node_types":{
@@ -38,7 +64,7 @@
       "rgb":true,
       "effect":true,
       "unique_id":"${node_id}",
-      "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
+      "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","rainbowGlitterTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
         "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]
     },
     "led_segment":{
@@ -49,11 +75,11 @@
       "state_topic": "home/led/${device_id}",
       "command_on_template":"{\"objects\":{\"${node_id}\":{\"state\": \"ON\"{%- if red is defined and green is defined and blue is defined -%}, \"color\": {\"r\":{{ red }}, \"g\":{{ green }}, \"b\":{{ blue }}}{%- endif -%}{%- if effect is defined -%}, \"effect\": \"{{ effect }}\"{%- endif -%}}}}",
       "command_off_template": "{\"objects\":{\"${node_id}\":{\"state\": \"OFF\"}}}",
-      "state_template": "{{ value_json['${node_id}'].state.lower() }}",
-      "red_template": "{{ value_json['${node_id}'].color.r }}",
-      "green_template": "{{ value_json['${node_id}'].color.g }}",
-      "blue_template": "{{ value_json['${node_id}'].color.b }}",
-      "effect_template": "{{ value_json['${node_id}'].effect }}",
+      "state_template": "{{ value_json.objects['${node_id}'].state.lower() }}",
+      "red_template": "{{ value_json.objects['${node_id}'].color.r }}",
+      "green_template": "{{ value_json.objects['${node_id}'].color.g }}",
+      "blue_template": "{{ value_json.objects['${node_id}'].color.b }}",
+      "effect_template": "{{ value_json.objects['${node_id}'].effect }}",
       "brightness": false ,
       "retain":false,
       "rgb":true,
@@ -61,8 +87,7 @@
       "unique_id":"${node_id}",
       "effect_list":["autoPlay","blink","color","rainbow","breathe","confetti","star","pride","sinelon","cloudTwinkles","rainbowTwinkles","snowTwinkles","incandescentTwinkles","redGreenWhiteTwinkles","hollyTwinkles","redWhiteTwinkles",
         "blueWhiteTwinkles","fairyLightTwinkles","snow2Twinkles","iceTwinkles","retroC9Twinkles","partyTwinkles","forestTwinkles","lavaTwinkles","fireTwinkles","cloud2Twinkles","oceanTwinkles"]     
-    }
-    ,
+    },
     "led_speed":{
       "component":"number",
       "entity_category":"config",
@@ -103,8 +128,8 @@
       "value_template": "{{ (value_json['ENERGY'].Today) |float }}",
       "unit_of_measurement": "kWh",
       "device_class": "energy",
-      "json_attributes_topic": "home/energy/${device_id}/tele/SENSOR"
-
+      "json_attributes_topic": "home/energy/${device_id}/tele/SENSOR",
+      "system_info":[]
     }
   },
   "devices":{
@@ -113,15 +138,15 @@
       "name":"Garage 1"
     },
     "garagedoor-2":{
-      "node_type":"door",
+      "node_type":["door"],
       "name":"Garage 2"
     },
     "garagedoor-3":{
-      "node_type":"door",
+      "node_type":["door"],
       "name":"Garage 3"
     },
     "entrance-gate":{
-      "node_type":"door",
+      "node_type":["door"],
       "device_class":"gate",
       "name":"Portail"
     },
@@ -169,13 +194,13 @@
       "name":"Salon led buffet"
     },
     "bedheater-1":{
-      "node_type":"switch",
+      "node_type":["switch"],
       "name":"Couverture Laurine",
       "device_id":"bed-heater",
       "icon":"mdi:bed-king"
     },
     "bedheater-2":{
-      "node_type":"switch",
+      "node_type":["switch"],
       "name":"Couverture Seb",
       "device_id":"bed-heater",
       "icon":"mdi:bed-king"
@@ -193,7 +218,7 @@
       "icon":"mdi:string-lights"
     },
     "xmas-light_switch":{
-      "node_type":"switch",
+      "node_type":["switch"],
       "device_id":"xmas-light",
       "name":"Guirlandes noël switch",
       "icon":"mdi:light-switch"
