@@ -14,6 +14,9 @@ def incarnate_settings(data,settings):
         new[k]=v
     return new
 
+def dedup_list(x):
+    return list(dict.fromkeys(x))
+
 class DiscoveryWatcher:
     def __init__(self, directory,client,config):
         self._directory = directory
@@ -68,6 +71,7 @@ class DiscoveryWatcher:
             global_params = data["globals"]
             node_type_params = data["node_types"]
             nodes_params = data["devices"]
+            system_info_type = data["system_infos"]
 
             for node_id, node_param in nodes_params.items():
 
@@ -107,18 +111,59 @@ class DiscoveryWatcher:
                     else:
                         topic = data["discovery_prefix"]+"/"+message["component"]+"/"+device_id+"/"+node_id+"/config"
 
+                    system_info =  message["system_info"] if "system_info" in message else []
+                    if not isinstance(system_info, list):
+                        system_info= [system_info]
+
+
                     if "node_type" in message: del message["node_type"]
                     if "component" in message: del message["component"]
                     if "device_id" in message: del message["device_id"]
+                    if "system_info" in message: del message["system_info"]
 
-                    self.ha_config[key] = {"topic":topic,"message":message,"device_id":device_id}
-                    print(" > config for "+key+" sent")
+                    self.ha_config[key] = {"topic":topic,"message":message,"device_id":device_id,"system_info":system_info}
+                    print(" > config for "+key+" created")
 
             #print(self.ha_config)
+        #Create system_info
+        device_ids = dedup_list([self.ha_config[e]["device_id"] for e in self.ha_config])
+        for device_id in device_ids:
+            system_infos = []
+            #Grab all device with this deviceId to load system_infos
+            keys = [key for key,config in self.ha_config.items() if config["device_id"]==device_id]
+            for key in keys:
+                system_infos += self.ha_config[key]["system_info"]
+            system_infos = dedup_list(system_infos)
 
-        for id,config in self.ha_config.items():
+            for sys_info in system_infos:
+                if (sys_info not in system_info_type):
+                        break
+                key = sys_info+"_"+device_id
+                message = {}
+                message.update(global_params)
+                message.update(system_info_type[sys_info])
+                message = incarnate_settings(message,{"${device_id}":device_id})
+                message = incarnate_settings(message,{"${node_id}":device_id})
+
+                #Replace advertising data
+                if device_id in self.advertise_data:
+                    if "device" not in message:
+                        message["device"] = {}
+                    message["device"].update(self.advertise_data[device_id])
+
+                topic = data["discovery_prefix"]+"/"+message["component"]+"/"+device_id+"/"+sys_info+"/config"
+
+                if "component" in message: del message["component"]
+                if "system_info" in message: del message["system_info"]
+
+                self.ha_config[key] = {"topic":topic,"message":message,"device_id":device_id,"system_info":[]}
+                print(" > config for "+key+" created")
+            
+
+        for key,config in self.ha_config.items():
             #print(config["message"])
             self.client.publish(config["topic"], payload=json.dumps(config["message"]), qos=1, retain=True)
+            print(" > config for "+key+" sent")
             
             #self.client.publish(config["topic"], payload=None, qos=1, retain=True)
 
@@ -162,6 +207,8 @@ class DiscoveryWatcher:
 
         print("New data received from "+deviceId+" publish discovery")
         self.refresh_HA_discovery(deviceId)
+
+
 
 
 
