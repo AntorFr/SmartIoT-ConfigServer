@@ -5,10 +5,10 @@ __pycache__/
 .DS_Store
 
 #internal folder
-configs/
-discovery/
-firmwares/
-settings/config.json
+#data/configs/
+#data/discovery/
+#data/firmwares/
+data/settings/config.json
 
 # C extensions
 *.so

@@ -3,7 +3,7 @@
     "ssid": "INTRA_M2M"
   },
   "mqtt": {
-    "host": "192.168.10.23",
+    "host": "mqtt.intra.sberard.fr",
     "port": 1883,
     "auth": true,
     "base_topic": "home/"
@@ -12,17 +12,20 @@
     "enabled": true
   },
   "device_stats_interval": 300,
-  "device_id": "teddy-light",
-  "device_name": "Teddy light",
+  "device_id": "xmas-light",
+  "device_name": "xmas light",
   "settings": {},
   "nodes": {
     "led": {
-      "node_name": "teddy-light",
+      "node_name": "xmas-light_led",
       "fps": 60,
-      "nb_led": 32,
-      "audio_pin": 17,
+      "nb_led": 200,
       "auto_play": true,
       "auto_play_duration": 45
+    },
+    "switch": {
+      "node_name": "xmas-light_switch",
+      "pin": 12
     }
   }
 }

@@ -3,7 +3,7 @@
     "ssid": "INTRA_M2M"
   },
   "mqtt": {
-    "host": "192.168.10.23",
+    "host": "mqtt.intra.sberard.fr",
     "port": 1883,
     "auth": true,
     "base_topic": "home/"
@@ -12,20 +12,16 @@
     "enabled": true
   },
   "device_stats_interval": 300,
-  "device_id": "garagedoor-2",
-  "device_name": "Garage door 2",
+  "device_id": "entrance-gate",
+  "device_name": "Entrance gate",
   "settings": {},
   "nodes": {
     "door": {
-      "node_name": "garagedoor-2",
+      "node_name": "entrance-gate",
       "pin_open": 12,
       "pin_close": 12,
-      "open_duration": 20000,
-      "close_duration": 20000
-    },
-    "switch": {
-      "node_name": "garagedoor-2",
-      "pin": 15
+      "open_duration": 12000,
+      "close_duration": 120000
     }
   }
 }

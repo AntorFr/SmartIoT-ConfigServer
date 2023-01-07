@@ -1,0 +1,43 @@
+{
+  "wifi": {
+    "ssid": "INTRA_M2M"
+  },
+  "mqtt": {
+    "host": "mqtt.intra.sberard.fr",
+    "port": 1883,
+    "auth": true,
+    "base_topic": "home/"
+  },
+  "ota": {
+    "enabled": true
+  },
+  "device_stats_interval": 300,
+  "device_id": "buffet-light",
+  "device_name": "Buffet salon",
+  "settings": {},
+  "nodes": {
+    "led": {
+      "node_name": "buffet-light",
+      "fps": 60,
+      "nb_led": 100,
+      "audio_pin": 2,
+      "auto_play": true,
+      "auto_play_duration": 60,
+      "play_list": [
+        "star",
+        "sinelon",
+        "cloudTwinkles",
+        "snowTwinkles",
+        "incandescentTwinkles",
+        "blueWhiteTwinkles",
+        "fairyLightTwinkles",
+        "snow2Twinkles",
+        "iceTwinkles",
+        "forestTwinkles",
+        "fireTwinkles",
+        "cloud2Twinkles",
+        "oceanTwinkles"
+      ]
+    }
+  }
+}

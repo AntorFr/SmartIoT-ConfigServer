@@ -20,9 +20,9 @@
       "entity_category":"diagnostic",
       "enabled_by_default":true,
       "state_topic":"home/log/heartbeat/${device_id}",
-      "value_template":"{{value_json.boot_date}}",
+      "value_template":"{{value_json.boot_date| timestamp_local}}",
       "json_attributes_topic":"home/log/heartbeat/${device_id}",
-      "json_attributes_template":"{\"uptime\": {{value_json.uptime| timestamp_local}}}"
+      "json_attributes_template":"{\"uptime\": {{value_json.uptime}}}"
     },
     "freemem":{
       "name":"Free mem",

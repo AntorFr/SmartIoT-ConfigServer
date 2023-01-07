@@ -9,7 +9,7 @@ config = {}
 
 def load_config():
     global config
-    with open('settings/config.json', 'r') as f:
+    with open('data/settings/config.json', 'r') as f:
         config = json.load(f)
         if ("port" not in config["broker"]):
             config["broker"]["port"] = 1883
@@ -58,8 +58,9 @@ def on_config_message(client, userdata, msg):
         return #empty message to remove retain
 
     deviceId = topic[3]
-    with open("configs/"+deviceId+".json", "w") as f:
+    with open("data/configs/"+deviceId+".json", "w") as f:
         json.dump(json.loads(payload),f,indent=2)
+    print(" > config for "+deviceId+" saved in json")
 
     client.publish(msg.topic, payload=None, qos=1, retain=True)
 
@@ -101,11 +102,11 @@ if __name__ == "__main__":
         client.message_callback_add(domain+"/log/config/+", on_config_message)
 
 
-    discovery = DiscoveryWatcher("./discovery",client,config)
+    discovery = DiscoveryWatcher("./data/discovery",client,config)
 
     client.connect(config["broker"]["host"], config["broker"]["port"], 60)
 
-    fw = FirmwareWatcher("./firmwares")
+    fw = FirmwareWatcher("./data/firmwares")
     fw.add = post_firmware
     fw.remove = unpost_firmware
     fw._read_firmware_folder()

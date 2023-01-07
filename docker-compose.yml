@@ -4,10 +4,10 @@ services:
     build: https://github.com/AntorFr/SmartIoT-ConfigServer.git
     restart: unless-stopped
     volumes:
-      - ./configs:/app/configs
-      - ./discovery:/app/discovery
-      - ./firmwares:/app/firmwares
-      - ./settings:/app/settings
+      - ./configs:/app/data/configs
+      - ./discovery:/app/data/discovery
+      - ./firmwares:/app/data/firmwares
+      - ./settings:/app/data/settings
     networks:
       - backend-net
 

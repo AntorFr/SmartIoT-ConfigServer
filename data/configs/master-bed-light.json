@@ -1,0 +1,27 @@
+{
+  "wifi": {
+    "ssid": "INTRA_M2M"
+  },
+  "mqtt": {
+    "host": "mqtt.intra.sberard.fr",
+    "port": 1883,
+    "auth": true,
+    "base_topic": "home/"
+  },
+  "ota": {
+    "enabled": true
+  },
+  "device_stats_interval": 300,
+  "device_id": "master-bed-light",
+  "device_name": "Lit parent",
+  "settings": {},
+  "nodes": {
+    "led": {
+      "node_name": "master-bed-light",
+      "fps": 60,
+      "nb_led": 21,
+      "auto_play": false,
+      "auto_play_duration": 45
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "wifi": {
+    "ssid": "INTRA_M2M"
+  },
+  "mqtt": {
+    "host": "mqtt.intra.sberard.fr",
+    "port": 1883,
+    "auth": true,
+    "base_topic": "home/"
+  },
+  "ota": {
+    "enabled": true
+  },
+  "device_stats_interval": 300,
+  "device_id": "daynight-light",
+  "device_name": "Day and night light",
+  "settings": {},
+  "nodes": {
+    "led": {
+      "fps": 60,
+      "node_name": "daynight-light",
+      "device_id": "daynight-light",
+      "objects": [
+        {
+          "name": "daynight-moon-light",
+          "nb_led": 31,
+          "start_led": 0,
+          "auto_play": false,
+          "audio_pin": 2
+        },
+        {
+          "name": "daynight-stars-light",
+          "nb_led": 5,
+          "start_led": 31,
+          "auto_play": false,
+          "audio_pin": 2
+        },
+        {
+          "name": "daynight-sun-light",
+          "nb_led": 27,
+          "start_led": 36,
+          "auto_play": false,
+          "audio_pin": 2
+        }
+      ]
+    }
+  }
+}
